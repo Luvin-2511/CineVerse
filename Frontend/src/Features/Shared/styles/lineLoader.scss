@@ -1,0 +1,18 @@
+.loader-liner {
+    height: 100vh;
+    width: 100%;
+    .liner {
+        height: 2px;
+        width: 100%;
+        background: red;
+        animation: loading 10s linear;
+    }
+}
+
+@keyframes loading {
+    from {
+        width: 0%;
+    }to{
+        width: 100%;
+    }
+}

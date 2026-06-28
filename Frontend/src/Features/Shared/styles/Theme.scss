@@ -1,0 +1,17 @@
+:root {
+  --bg-color: #060608;
+  --bg-rgb: 6, 6, 8;
+  --text-color: rgba(255, 255, 255, 0.85);
+  --text-rgb: 255, 255, 255;
+  --text-muted: rgba(255, 255, 255, 0.65);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #e8ff00;
+  --nav-bg: rgba(6, 6, 8, 0.9);
+  --skeleton-bg: rgba(255, 255, 255, 0.05);
+  --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}

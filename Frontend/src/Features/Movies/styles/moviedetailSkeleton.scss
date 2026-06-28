@@ -1,0 +1,282 @@
+// ─── Shimmer Keyframe ────────────────────────────────────────────────────────
+@keyframes shimmer {
+  0% {
+    background-position: -800px 0;
+  }
+  100% {
+    background-position: 800px 0;
+  }
+}
+
+// ─── Shimmer Mixin ────────────────────────────────────────────────────────────
+%shimmer-base {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 0px,
+    #2a2a2a 40px,
+    #222 80px
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 4px;
+}
+
+.shimmer {
+  @extend %shimmer-base;
+}
+
+// ─── Skeleton Root ────────────────────────────────────────────────────────────
+.detail-skeleton {
+  background: #040406;
+  min-height: 100vh;
+  color: transparent;
+
+  // ── Hero ──────────────────────────────────────────────────────────────────
+  &__hero {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+
+    // Override shimmer rounded corners for full bleed
+    border-radius: 0 !important;
+    opacity: 0.6;
+  }
+
+  &__hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      #040406 0%,
+      rgba(4, 4, 6, 0.7) 50%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+
+  &__hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 4rem 4rem;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  // ── Genres ────────────────────────────────────────────────────────────────
+  &__genres {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__genre-tag {
+    display: inline-block;
+    width: 80px;
+    height: 24px;
+    border-radius: 20px !important;
+  }
+
+  // ── Title ─────────────────────────────────────────────────────────────────
+  &__title {
+    width: 60%;
+    height: 52px;
+    border-radius: 6px !important;
+
+    &--short {
+      width: 40%;
+      height: 52px;
+      margin-top: -0.5rem;
+    }
+  }
+
+  // ── Meta ──────────────────────────────────────────────────────────────────
+  &__meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.25rem;
+  }
+
+  &__meta-item {
+    display: inline-block;
+    width: 80px;
+    height: 20px;
+    border-radius: 4px !important;
+  }
+
+  // ── Overview ──────────────────────────────────────────────────────────────
+  &__overview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  &__overview-line {
+    width: 100%;
+    height: 16px;
+
+    &--short {
+      width: 65%;
+    }
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__btn {
+    width: 160px;
+    height: 44px;
+    border-radius: 4px !important;
+
+    &--icon {
+      width: 44px;
+      border-radius: 50% !important;
+    }
+
+    &--watchlist {
+      width: 130px;
+    }
+  }
+
+  // ── Body ──────────────────────────────────────────────────────────────────
+  &__body {
+    padding: 2rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  // ── Shared Section ────────────────────────────────────────────────────────
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__section-eyebrow {
+    width: 80px;
+    height: 14px;
+  }
+
+  &__section-heading {
+    width: 280px;
+    height: 32px;
+    border-radius: 4px !important;
+  }
+
+  // ── Trailer iframe ────────────────────────────────────────────────────────
+  &__iframe {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px !important;
+    margin-top: 0.5rem;
+  }
+
+  // ── Watch Teaser ──────────────────────────────────────────────────────────
+  &__watch-teaser {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px !important;
+    margin-top: 0.5rem;
+  }
+
+  // ── Cast Grid ─────────────────────────────────────────────────────────────
+  &__cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  &__cast-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__cast-img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 6px !important;
+  }
+
+  &__cast-name {
+    width: 80%;
+    height: 14px;
+  }
+
+  &__cast-role {
+    width: 60%;
+    height: 12px;
+    opacity: 0.6;
+  }
+
+  // ── Similar Grid ──────────────────────────────────────────────────────────
+  &__similar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  &__similar-card {
+    aspect-ratio: 2 / 3;
+    border-radius: 8px !important;
+  }
+
+  // ── Responsive ────────────────────────────────────────────────────────────
+  @media (max-width: 768px) {
+    &__hero {
+      height: 75vh;
+    }
+
+    &__hero-content {
+      padding: 0 1.5rem 2.5rem;
+    }
+
+    &__title {
+      width: 85%;
+      height: 38px;
+
+      &--short {
+        width: 60%;
+        height: 38px;
+      }
+    }
+
+    &__body {
+      padding: 2rem 1.5rem 4rem;
+      gap: 3rem;
+    }
+
+    &__cast-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    &__similar-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+  }
+}
