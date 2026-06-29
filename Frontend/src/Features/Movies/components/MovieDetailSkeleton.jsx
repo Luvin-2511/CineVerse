@@ -1,4 +1,4 @@
-import "../styles/moviedetailskeleton.scss";
+import "../styles/moviedetailSkeleton.scss";
 
 const MovieDetailSkeleton = () => {
   return (
