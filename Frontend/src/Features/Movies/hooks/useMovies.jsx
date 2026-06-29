@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { MovieContext } from "../movie.context";
+import { MovieContext } from "../Movie.context";
 import {
   getGenreList,
   getMovieDetail,

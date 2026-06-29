@@ -16,7 +16,7 @@ async function addFavoriteController(req, res) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    const isAlreadyFavorite = user.favorites.some((fav) => fav.movieId === Id); // ✅ Id not id
+    const isAlreadyFavorite = user.favorites.some((fav) => fav.movieId === Id); 
 
     let updatedUser;
 

@@ -9,26 +9,35 @@ require("dotenv").config();
  */
 
 const express = require("express");
-const cookieParser = require('cookie-parser')
-const cors = require('cors')
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const app = express();
 
 /**
  * Middlewares
  */
-app.use(cookieParser())
-app.use(express.json())
-app.use(cors({
+app.use(cookieParser());
+app.use(express.json());
+app.use(
+  cors({
     origin: "http://localhost:5173",
-    credentials:true
-}))
+    credentials: true,
+  }),
+);
+
+/**
+ * Health check Route
+ */
+app.get("/", (req, res) => {
+  console.log("Perfectly Working !");
+});
 
 /**
  * Routes
  */
 const authRouter = require("./routers/auth.router");
 const userRouter = require("./routers/user.router");
-app.use('/api/auth',authRouter)
-app.use('/api/user',userRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 module.exports = app;

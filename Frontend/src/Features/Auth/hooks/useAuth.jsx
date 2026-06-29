@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../auth.context";
+import { AuthContext } from "../Auth.context";
 import { GetMe, Login, Logout, Register } from "../services/Auth.api";
 import { useToast } from "../../Shared/toast.context";
 

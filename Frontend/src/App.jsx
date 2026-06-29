@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import AppRoutes from "./AppRoutes";
 import Lenis from "lenis";
-import AuthProvider from "./Features/Auth/auth.context";
-import MovieProvider from "./Features/Movies/movie.context";
+import AuthProvider from "./Features/Auth/Auth.context";
+import MovieProvider from "./Features/Movies/Movie.context";
 import UserProvider from "./Features/User/user.context";
 import { ToastProvider } from "./Features/Shared/toast.context";
 
