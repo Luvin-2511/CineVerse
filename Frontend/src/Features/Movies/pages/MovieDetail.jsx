@@ -46,10 +46,11 @@ const MovieDetail = () => {
 
   useEffect(() => {
     if (movieId) {
+      window.scrollTo(0, 0);
       handleMovieDetail(movieId);
       handleMovieTrailer(movieId).then(setTrailer);
-      handleActorsOfMovie(movieId).then((res) => setActors(res.cast));
-      handleSimilarMovies(movieId).then(setSimilarMovies);
+      handleActorsOfMovie(movieId).then((res) => setActors(res?.cast || []));
+      handleSimilarMovies(movieId).then((res) => setSimilarMovies(res || []));
     }
   }, [movieId, selectedType]);
 
@@ -65,17 +66,30 @@ const MovieDetail = () => {
 
   useEffect(() => {
     if (!movieDetail?.id || !movieDetail?.first_air_date) return;
+    
+    const controller = new AbortController();
     setLoadingEpisodes(true);
     setSelectedEpisode(1);
+    
     fetch(
       `https://api.themoviedb.org/3/tv/${movieDetail.id}/season/${selectedSeason}?api_key=${TMDB_API_KEY}`,
+      { signal: controller.signal }
     )
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to fetch episodes");
+        return r.json();
+      })
       .then((data) => {
         setEpisodes(data.episodes || []);
         setLoadingEpisodes(false);
       })
-      .catch(() => setLoadingEpisodes(false));
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          setLoadingEpisodes(false);
+        }
+      });
+      
+    return () => controller.abort();
   }, [selectedSeason, movieDetail?.id]);
 
   if (!movieDetail || !movieDetail.id) return <MovieDetailSkeleton />;
@@ -403,15 +417,15 @@ const MovieDetail = () => {
           <p className="detail__trailer-section-label">◈ Trailer</p>
           <h2>WATCH THE TRAILER</h2>
           {trailer ? (
-            <iframe
-              width="1280"
-              height="720"
-              src={`https://www.youtube.com/embed/${trailer.key}?mute=1`}
-              title={`${movieDetail.original_title || movieDetail.name} Trailer`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <div className="detail__trailer-wrapper">
+              <iframe
+                src={`https://www.youtube.com/embed/${trailer.key}?mute=1`}
+                title={`${movieDetail.original_title || movieDetail.name} Trailer`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           ) : (
             <div className="detail__trailer-unavailable">
               Trailer unavailable.

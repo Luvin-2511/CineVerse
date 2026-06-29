@@ -35,6 +35,12 @@ nav {
     user-select: none;
 
     &:hover { opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      left: 1rem;
+      bottom: 0.75rem;
+      font-size: 1.6rem;
+    }
   }
 
   .nav-cont {
@@ -76,6 +82,18 @@ nav {
   .nav-container-small  { height: 40%; width: 17rem; }
   .nav-container-medium { height: 70%; width: 25rem; }
   .nav-container-large  { height: 100%; width: 14rem; }
+
+  @media (max-width: 900px) {
+    .nav-container-small,
+    .nav-container-medium {
+      display: none;
+    }
+    
+    .nav-container-large {
+      width: 100px;
+      height: 100%;
+    }
+  }
 }
 
 // ── Big Nav Overlay ────────────────────────────────────────────

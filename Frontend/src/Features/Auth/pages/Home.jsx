@@ -4,8 +4,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
-import ShowcaseSection from "../components/Showcasesession";
-import "../styles/home.scss";
+import ShowcaseSection from "../components/ShowcaseSession";
+import "../styles/Home.scss";
 import Loader from "../../Shared/components/Loader";
 
 gsap.registerPlugin(ScrollTrigger);

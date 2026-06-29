@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import MagneticButton from "../../Shared/components/MagneticButton";
-import "../styles/login.scss";
+import "../styles/Login.scss";
 import "../../Shared/styles/global.scss";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";

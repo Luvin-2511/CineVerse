@@ -1,5 +1,5 @@
 import useAuth from "../../Auth/hooks/useAuth";
-import { addHistory, clearAllHistory } from "../services/user.api";
+import { addHistory, clearAllHistory } from "../services/User.api";
 import { useToast } from "../../Shared/toast.context";
 
 const useHistory = () => {
@@ -14,7 +14,9 @@ const useHistory = () => {
         mediaType:  movie.media_type || "movie",
         year:       (movie.release_date || movie.first_air_date)?.split("-")[0],
       });
-      updateUser(response.data);
+      if (response && response.user) {
+        updateUser(response.user);
+      }
     } catch (err) {
       showToast("Failed to save watch history.", "error");
     }
@@ -23,7 +25,9 @@ const useHistory = () => {
   const clearHistory = async () => {
     try {
       const response = await clearAllHistory();
-      updateUser(response.data);
+      if (response && response.user) {
+        updateUser(response.user);
+      }
     } catch (err) {
       showToast("Failed to clear watch history.", "error");
     }
