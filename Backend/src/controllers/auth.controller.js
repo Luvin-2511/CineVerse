@@ -43,7 +43,12 @@ async function registerController(req, res) {
       expiresIn: process.env.JWT_EXPIRE,
     },
   );
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
 
   return res.status(200).json({
     success: true,
@@ -105,7 +110,12 @@ async function loginController(req, res) {
     },
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
 
   return res.status(200).json({
     success: true,
@@ -125,7 +135,11 @@ async function loginController(req, res) {
  * @param {import('express').Response} res
  */
 async function logoutController(req, res) {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
   return res.status(201).json({
     success: true,
     message: "Logout successfully !",
