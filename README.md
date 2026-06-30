@@ -236,14 +236,19 @@ Add screenshots here.
 
 ```
 Home Page
+(./showcase/home.png)
 
 Trending Movies
+(./showcase/browse.png)
 
 Movie Details
+(./showcase/detail.png)
 
 Watch Page
+(./showcase/player.png)
 
 Search Results
+(./showcase/search.png)
 
 User Profile
 ```
