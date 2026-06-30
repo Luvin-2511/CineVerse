@@ -230,28 +230,25 @@ http://localhost:5173
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-Add screenshots here.
+### Home Page
+![Home Page](./showcase/home.png)
 
-```
-Home Page
-(./showcase/home.png)
+### Trending Movies
+![Trending Movies](./showcase/browse.png)
 
-Trending Movies
-(./showcase/browse.png)
+### Movie Details
+![Movie Details](./showcase/detail.png)
 
-Movie Details
-(./showcase/detail.png)
+### Watch Page
+![Watch Page](./showcase/player.png)
 
-Watch Page
-(./showcase/player.png)
+### Search Results
+![Search Results](./showcase/search.png)
 
-Search Results
-(./showcase/search.png)
-
-User Profile
-```
+### User Profile
+![User Profile](./showcase/profile.png)
 
 ---
 
