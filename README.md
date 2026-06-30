@@ -2,12 +2,6 @@
 
 <div align="center">
 
-
-### 🌐 Live Demo
-
-**🚀 https://cineverse-lake-theta.vercel.app/**
-
-
 ### Discover • Stream • Explore
 
 A modern full-stack movie and TV show streaming platform built with **React**, **Express.js**, and **TMDB API**.
@@ -19,6 +13,10 @@ A modern full-stack movie and TV show streaming platform built with **React**, *
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 </div>
+
+### 🌐 Live Demo
+
+**🚀 https://cineverse-lake-theta.vercel.app/**
 
 ---
 
