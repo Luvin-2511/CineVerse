@@ -2,6 +2,12 @@
 
 <div align="center">
 
+
+### 🌐 Live Demo
+
+**🚀 https://cineverse-lake-theta.vercel.app/**
+
+
 ### Discover • Stream • Explore
 
 A modern full-stack movie and TV show streaming platform built with **React**, **Express.js**, and **TMDB API**.
@@ -246,9 +252,6 @@ http://localhost:5173
 
 ### Search Results
 ![Search Results](./showcase/search.png)
-
-### User Profile
-![User Profile](./showcase/profile.png)
 
 ---
 
