@@ -195,6 +195,14 @@ const Home = () => {
   const navRef = useRef(null);
   const heroRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -208,54 +216,61 @@ const Home = () => {
         .forEach((el) => el.classList.add("visible"));
     }, 50);
 
-    gsap.fromTo(
-      ".home-page__features-card",
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".home-page__features-grid",
-          start: "top 80%",
-        },
-      },
-    );
+    const mm = gsap.matchMedia();
 
-    gsap.fromTo(
-      ".home-page__stats-item",
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: { trigger: ".home-page__stats", start: "top 85%" },
-      },
-    );
+    mm.add("(min-width: 769px)", () => {
+      gsap.fromTo(
+        ".home-page__features-card",
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".home-page__features-grid",
+            start: "top 80%",
+          },
+        }
+      );
 
-    gsap.fromTo(
-      ".home-page__footer-cta h2",
-      { opacity: 0, y: 80 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power4.out",
-        scrollTrigger: { trigger: ".home-page__footer-cta", start: "top 75%" },
-      },
-    );
+      gsap.fromTo(
+        ".home-page__stats-item",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".home-page__stats", start: "top 85%" },
+        }
+      );
 
-    return () => window.removeEventListener("scroll", handleScroll);
+      gsap.fromTo(
+        ".home-page__footer-cta h2",
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: ".home-page__footer-cta", start: "top 75%" },
+        }
+      );
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      mm.revert();
+    };
   }, []);
 
   return (
     <div className="home-page">
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
-      <GlobalCursor />
+      {!isMobile && <GlobalCursor />}
       {loaded && (
         <>
           {/* Nav */}
@@ -282,14 +297,16 @@ const Home = () => {
 
           {/* Hero */}
           <section className="home-page__hero" ref={heroRef}>
-            <Canvas
-              className="home-page__hero-canvas"
-              camera={{ position: [0, 0, 4], fov: 60 }}
-              style={{ position: "absolute", inset: 0 }}
-            >
-              <StarField />
-              <Rings />
-            </Canvas>
+            {!isMobile && (
+              <Canvas
+                className="home-page__hero-canvas"
+                camera={{ position: [0, 0, 4], fov: 60 }}
+                style={{ position: "absolute", inset: 0 }}
+              >
+                <StarField />
+                <Rings />
+              </Canvas>
+            )}
             <div className="home-page__hero-overlay" />
 
             <div className="home-page__hero-content">

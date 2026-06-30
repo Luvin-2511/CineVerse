@@ -34,6 +34,8 @@ const useMagnetic = (strength = 0.35) => {
   const ref = useRef(null);
 
   useEffect(() => {
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+
     const el = ref.current;
     if (!el) return;
 
@@ -136,6 +138,8 @@ const ShowCard = ({ card, index }) => {
   const innerRef = useRef(null);
 
   useEffect(() => {
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+
     const el = cardRef.current;
     if (!el) return;
 
@@ -209,6 +213,8 @@ const SectionCursor = ({ sectionRef }) => {
   const dotRef = useRef(null);
 
   useEffect(() => {
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+
     const section = sectionRef.current;
     if (!section) return;
 
@@ -276,8 +282,9 @@ const ShowcaseSection = () => {
   const magnetRef = useMagnetic(0.3);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
 
+    mm.add("(min-width: 769px)", () => {
       
       const lines = headlineRef.current?.querySelectorAll(".headline-line");
       gsap.fromTo(lines,
@@ -352,9 +359,9 @@ const ShowcaseSection = () => {
         },
       });
 
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
