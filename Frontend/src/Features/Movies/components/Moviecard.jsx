@@ -40,14 +40,14 @@ const MovieCard = ({ features }) => {
           className="movie-card__rating"
           style={{
             "--rc":
-              features.vote_average < 6
+              (features.vote_average ?? 0) < 6
                 ? "#f58f00"
-                : features.vote_average < 8
+                : (features.vote_average ?? 0) < 8
                   ? "#00bff3"
                   : "#e8ff00",
           }}
         >
-          ★ {features.vote_average.toFixed(1)}
+          ★ {(features.vote_average ?? 0).toFixed(1)}
         </span>
       </div>
 

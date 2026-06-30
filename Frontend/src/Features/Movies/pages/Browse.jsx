@@ -19,10 +19,12 @@ const Browse = () => {
     loading,
     handleParticularGenre,
     handleSearch,
+    fetchMovies,
     selectedType,
-    setSelectedType
+    setSelectedType,
   } = useMovies();
   const sentinalRef = useRef(null);
+  const isMounted = useRef(false);
   
   const CATEGORIES = [
     { key: "trending", label: "Trending" },
@@ -36,6 +38,16 @@ const Browse = () => {
   const [search, setSearch] = useState("");
   
   useEffect(() => {
+    // Skip the very first render — useMovies already fetches on mount
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+    if (!search.trim()) {
+      // User cleared the box — restore the active category
+      fetchMovies(category, 1);
+      return;
+    }
     const handleTimeout = setTimeout(() => {
       handleSearch(search);
     }, 500);
