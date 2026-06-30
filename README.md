@@ -12,11 +12,11 @@ A modern full-stack movie and TV show streaming platform built with **React**, *
 ![TMDB](https://img.shields.io/badge/API-TMDB-01D277)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-</div>
-
 ### 🌐 Live Demo
 
 **🚀 https://cineverse-lake-theta.vercel.app/**
+
+</div>
 
 ---
 
