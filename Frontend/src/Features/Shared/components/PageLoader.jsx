@@ -1,27 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Loader from './Loader';
 
 // PageLoader.jsx
 const PageLoader = ({ children }) => {
   const location = useLocation();
-  const prevPath = useRef(location.pathname);
   const [loading, setLoading] = useState(false);
+  const [currentPath, setCurrentPath] = useState(location.pathname);
 
-  useEffect(() => {
-    const from = prevPath.current;
-    const to = location.pathname;
-    if (to !== from && to !== "/") {
+  if (location.pathname !== currentPath) {
+    if (location.pathname !== "/") {
       setLoading(true);
     }
-    prevPath.current = to;
-  }, [location.pathname]);
-
-  if (loading) {
-    return <Loader fast onComplete={() => setLoading(false)} />;
+    setCurrentPath(location.pathname);
   }
 
-  return children;
+  return (
+    <>
+      {loading && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 99999 }}>
+          <Loader fast onComplete={() => setLoading(false)} />
+        </div>
+      )}
+      <div style={{ display: loading ? 'none' : 'block', width: '100%', height: '100%' }}>
+        {children}
+      </div>
+    </>
+  );
 };
 
-export default PageLoader
+export default PageLoader;

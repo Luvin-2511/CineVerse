@@ -215,7 +215,7 @@ const Home = () => {
             <ul className="home-page__nav-links">
               {["Trending", "Movies", "TV Shows", "People"].map((l) => (
                 <li key={l}>
-                  <a href="#">{l}</a>
+                  <Link to="/browse">{l}</Link>
                 </li>
               ))}
             </ul>

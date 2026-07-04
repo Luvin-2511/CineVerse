@@ -88,8 +88,8 @@ const Register = () => {
 
             <p className="register-page__terms">
               By creating an account you agree to our{" "}
-              <a href="#">Terms of Service</a> and{" "}
-              <a href="#">Privacy Policy</a>.
+              <Link to="/">Terms of Service</Link> and{" "}
+              <Link to="/">Privacy Policy</Link>.
             </p>
 
             <MagneticButton disabled={authLoading} type="submit">{authLoading?"AUTHENTICATING":"CREATE MY ACCOUNT"}</MagneticButton>

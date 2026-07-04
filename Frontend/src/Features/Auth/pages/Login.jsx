@@ -119,7 +119,7 @@ const Login = () => {
             </div>
 
             <div className="login-page__forgot">
-              <a href="#">Forgot password?</a>
+              <Link to="/login">Forgot password?</Link>
             </div>
 
             <MagneticButton disabled={authLoading} type="submit">{authLoading?"AUTHENTICATING":"ENTER THE PLATFORM"}</MagneticButton>

@@ -107,7 +107,7 @@ const Navbar = () => {
         }}
         className="big-nav"
       >
-        <a className="big-nav__logo">CINEVERSE</a>
+        <a className="big-nav__logo" onClick={() => navigate("/browse")}>CINEVERSE</a>
         <button className="big-nav__close" onClick={closeNav}>
           <span />
           <span />

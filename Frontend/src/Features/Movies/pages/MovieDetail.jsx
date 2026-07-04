@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../Shared/components/Navbar";
 import "../styles/moviedetail.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import useMovies from "../hooks/useMovies";
 import MovieDetailSkeleton from "../components/MovieDetailSkeleton";
 import useFavorites from "../../User/hooks/useFavorites";
@@ -22,6 +22,7 @@ const MovieDetail = () => {
     handleActorsOfMovie,
     handleSimilarMovies,
     selectedType,
+    setSelectedType,
   } = useMovies();
 
   const { handleFavorite, user } = useFavorites();
@@ -43,16 +44,25 @@ const MovieDetail = () => {
 
   const { movieId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const expectedType = location.pathname.includes("/tv/") ? "tv" : "movie";
 
   useEffect(() => {
-    if (movieId) {
+    if (selectedType !== expectedType) {
+      setSelectedType(expectedType);
+    }
+  }, [expectedType, selectedType, setSelectedType]);
+
+  useEffect(() => {
+    if (movieId && selectedType === expectedType) {
       window.scrollTo(0, 0);
       handleMovieDetail(movieId);
       handleMovieTrailer(movieId).then(setTrailer);
       handleActorsOfMovie(movieId).then((res) => setActors(res?.cast || []));
       handleSimilarMovies(movieId).then((res) => setSimilarMovies(res || []));
     }
-  }, [movieId, selectedType]);
+  }, [movieId, selectedType, expectedType]);
 
   useEffect(() => {
     if (movieDetail?.id && movieDetail?.first_air_date) {
@@ -117,18 +127,18 @@ const MovieDetail = () => {
 
   const SOURCES = [
     {
-      id: "vidlink.pro",
+      id: "embed.su",
       name: "Server 1",
       url: isTV
-        ? `https://vidlink.pro/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidlink.pro/movie/${movieDetail.id}`,
+        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://embed.su/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "autoembed.co",
+      id: "vidsrc.pro",
       name: "Server 2",
       url: isTV
-        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
-        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
+        ? `https://vidsrc.pro/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.pro/embed/movie/${movieDetail.id}`,
     },
     {
       id: "2embed",
@@ -511,12 +521,12 @@ const MovieDetail = () => {
               {
                 name: "LordFlix",
                 tag: "HD",
-                url: `https://lordflix.org/watch/movie/${movieDetail.id}`,
+                url: `https://lordflix.org/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
               },
               {
                 name: "FlickyStream",
                 tag: "HD",
-                url: `https://flickystream.su/player/movie/${movieDetail.id}`,
+                url: `https://flickystream.su/player/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
               },
               {
                 name: "CinemaBZ",
@@ -526,12 +536,12 @@ const MovieDetail = () => {
               {
                 name: "67Movies",
                 tag: "HD",
-                url: `https://67movies.nl/watch/movie/${movieDetail.id}`,
+                url: `https://67movies.nl/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
               },
               {
                 name: "Flixer",
                 tag: "HD",
-                url: `https://flixer.su/watch/movie/${movieDetail.id}`,
+                url: `https://flixer.su/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
               },
               {
                 name: "Cinezone",
@@ -546,12 +556,12 @@ const MovieDetail = () => {
               {
                 name: "Cineby",
                 tag: "HD",
-                url: `https://cineby.at/movie/${movieDetail.id}`,
+                url: `https://cineby.at/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
               },
               {
                 name: "RiveStream",
                 tag: "HD",
-                url: `https://www.rivestream.app/detail?type=movie&id=${movieDetail.id}`,
+                url: `https://www.rivestream.app/detail?type=${isTV ? "tv" : "movie"}&id=${movieDetail.id}`,
               },
             ].map((site) => (
               <a
