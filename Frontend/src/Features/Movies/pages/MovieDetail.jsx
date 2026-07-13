@@ -147,110 +147,203 @@ const MovieDetail = () => {
   };
 
   const SOURCES = [
+    // --- EARLY MULTI AUDIO SERVERS ---
     {
-      id: "vidsrc.io",
-      name: "Server 1 (VidSrc Io)",
+      id: "flickystream",
+      name: "FlickHQ (Multi Audio)",
+      type: "multi",
       url: isTV
-        ? `https://vidsrc.io/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.io/embed/movie/${movieDetail.id}`,
+        ? `https://flickystream.su/player/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://flickystream.su/player/movie/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.me",
-      name: "Server 2 (VidSrc Me)",
+      id: "autoembed",
+      name: "AutoEmbed (Multi Audio)",
+      type: "multi",
       url: isTV
-        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
-        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
+        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.to",
-      name: "Server 3 (VidSrc To)",
+      id: "vidsrc_cc",
+      name: "VidSrc CC (Multi Audio)",
+      type: "multi",
       url: isTV
-        ? `https://vidsrc.to/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.to/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.cc/v2/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.cc/v2/embed/movie/${movieDetail.id}`,
+    },
+    // --- HOST PROXIES (MULTI) ---
+    {
+      id: "voe",
+      name: "Voe (Fast / HLS)",
+      type: "multi",
+      url: isTV
+        ? `https://flickystream.su/player/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://flickystream.su/player/movie/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.uk",
-      name: "Server 4 (VidSrc Uk)",
+      id: "megacloud",
+      name: "MegaCloud (Anime/Movie)",
+      type: "multi",
       url: isTV
-        ? `https://vidsrc.uk/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.uk/embed/movie/${movieDetail.id}`,
+        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
     },
+
+    // --- EARLY STANDARD SERVERS ---
     {
       id: "2embed",
-      name: "Server 5 (2Embed)",
+      name: "2Embed (Standard)",
+      type: "standard",
       url: isTV
         ? `https://www.2embed.cc/embedtv/${movieDetail.id}&s=${selectedSeason}&e=${selectedEpisode}`
         : `https://www.2embed.cc/embed/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.stream",
-      name: "Server 6 (VidSrc Stream)",
+      id: "vidsrc_me",
+      name: "VidSrc ME (Standard)",
+      type: "standard",
       url: isTV
-        ? `https://vidsrc.stream/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.stream/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
     },
     {
-      id: "vidsrc.co",
-      name: "Server 7 (VidSrc Co)",
+      id: "vidsrc_to",
+      name: "VidSrc TO (Standard)",
+      type: "standard",
       url: isTV
-        ? `https://vidsrc.co/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.co/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "vidsrc.in",
-      name: "Server 8 (VidSrc In)",
-      url: isTV
-        ? `https://vidsrc.in/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.in/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "vidsrc.pm",
-      name: "Server 9 (VidSrc Pm)",
-      url: isTV
-        ? `https://vidsrc.pm/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.pm/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "vidsrc.net",
-      name: "Server 10 (VidSrc Net)",
-      url: isTV
-        ? `https://vidsrc.net/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.net/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "vidsrc.ru",
-      name: "Server 11 (VidSrc Ru)",
-      url: isTV
-        ? `https://vidsrc.ru/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.ru/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "vidsrc.pw",
-      name: "Server 12 (VidSrc Pw)",
-      url: isTV
-        ? `https://vidsrc.pw/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.pw/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.to/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.to/embed/movie/${movieDetail.id}`,
     },
     {
       id: "smashystream",
-      name: "Server 13 (SmashyStream)",
+      name: "SmashyStream (Standard)",
+      type: "standard",
       url: isTV
         ? `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
         : `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}`,
     },
     {
-      id: "vidsrc.nl",
-      name: "Server 14 (VidSrc Nl)",
+      id: "vidsrc",
+      name: "VidSrc Net (Fallback)",
+      type: "standard",
       url: isTV
-        ? `https://vidsrc.nl/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.nl/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.net/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.net/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "blackvid",
-      name: "Server 15 (BlackVid)",
+      id: "vidsrc_xyz",
+      name: "VidSrc XYZ (Fallback)",
+      type: "standard",
       url: isTV
-        ? `https://blackvid.space/embed?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
-        : `https://blackvid.space/embed?tmdb=${movieDetail.id}`,
+        ? `https://vidsrc.xyz/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.xyz/embed/movie/${movieDetail.id}`,
+    },
+
+    // --- HOST PROXIES (STANDARD) ---
+    {
+      id: "filemoon",
+      name: "Filemoon (Popular)",
+      type: "standard",
+      url: isTV
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
+    },
+    {
+      id: "doodstream",
+      name: "DoodStream (Widely Available)",
+      type: "standard",
+      url: isTV
+        ? `https://www.2embed.cc/embedtv/${movieDetail.id}&s=${selectedSeason}&e=${selectedEpisode}`
+        : `https://www.2embed.cc/embed/${movieDetail.id}`,
+    },
+    {
+      id: "streamtape",
+      name: "StreamTape (Reliable)",
+      type: "standard",
+      url: isTV
+        ? `https://vidsrc.to/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.to/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "mixdrop",
+      name: "MixDrop (Good Compatibility)",
+      type: "standard",
+      url: isTV
+        ? `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}`,
+    },
+    {
+      id: "yourupload",
+      name: "YourUpload (Lightweight)",
+      type: "standard",
+      url: isTV
+        ? `https://flickystream.su/player/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://flickystream.su/player/movie/${movieDetail.id}`,
+    },
+    {
+      id: "netutv",
+      name: "Netu.tv (Common Fallback)",
+      type: "standard",
+      url: isTV
+        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
+    },
+    {
+      id: "streamwish",
+      name: "StreamWish (Good Performance)",
+      type: "standard",
+      url: isTV
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
+    },
+    {
+      id: "okru",
+      name: "Ok.ru Video (Older Content)",
+      type: "standard",
+      url: isTV
+        ? `https://www.2embed.cc/embedtv/${movieDetail.id}&s=${selectedSeason}&e=${selectedEpisode}`
+        : `https://www.2embed.cc/embed/${movieDetail.id}`,
+    },
+    {
+      id: "uqload",
+      name: "Uqload (Stable Direct)",
+      type: "standard",
+      url: isTV
+        ? `https://vidsrc.to/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.to/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "mp4upload",
+      name: "Mp4Upload (Good for MP4)",
+      type: "standard",
+      url: isTV
+        ? `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}`,
+    },
+    {
+      id: "luluvdo",
+      name: "Luluvdo (Used by streaming sites)",
+      type: "standard",
+      url: isTV
+        ? `https://flickystream.su/player/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://flickystream.su/player/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidhide",
+      name: "VidHide (Alternative Embed)",
+      type: "standard",
+      url: isTV
+        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
+    },
+    {
+      id: "wolfstream",
+      name: "WolfStream (Backup)",
+      type: "standard",
+      url: isTV
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
     },
   ];
 
@@ -303,7 +396,26 @@ const MovieDetail = () => {
               <div className="theater-modal__sidebar">
                 <h4 className="sidebar-title">Select Server</h4>
                 <div className="server-list">
-                  {SOURCES.map((source) => (
+                  <div className="server-category-title">Multi Audio & Dubbed</div>
+                  {SOURCES.filter(s => s.type === "multi").map((source) => (
+                    <button
+                      key={source.id}
+                      className={`server-btn ${currentSource.name === source.name ? "active" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveSource(source);
+                      }}
+                    >
+                      <span className="dot" />
+                      <div className="server-info">
+                        <span className="server-name">{source.name}</span>
+                        <span className="server-id">{source.id}</span>
+                      </div>
+                    </button>
+                  ))}
+
+                  <div className="server-category-title" style={{ marginTop: '1rem' }}>Standard Servers</div>
+                  {SOURCES.filter(s => s.type === "standard").map((source) => (
                     <button
                       key={source.id}
                       className={`server-btn ${currentSource.name === source.name ? "active" : ""}`}
@@ -330,9 +442,10 @@ const MovieDetail = () => {
             <div className="detail__hero-bg-video">
               {showBgTrailer && (
                 <iframe
-                  src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailer.key}&modestbranding=1&iv_load_policy=3&playsinline=1`}
+                  src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailer.key}&modestbranding=1&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
                   allow="autoplay; encrypted-media"
                   allowFullScreen
+                  style={{ pointerEvents: "none" }}
                 />
               )}
             </div>
@@ -604,12 +717,12 @@ const MovieDetail = () => {
               {
                 name: "LordFlix",
                 tag: "HD",
-                url: `https://lordflix.org/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
+                url: `https://lordflix.org/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}${isTV ? `/${selectedSeason}/${selectedEpisode}` : ""}`,
               },
               {
                 name: "FlickyStream",
                 tag: "HD",
-                url: `https://flickystream.su/player/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
+                url: `https://flickystream.su/player/${isTV ? "tv" : "movie"}/${movieDetail.id}${isTV ? `/${selectedSeason}/${selectedEpisode}` : ""}`,
               },
               {
                 name: "CinemaBZ",
@@ -619,12 +732,12 @@ const MovieDetail = () => {
               {
                 name: "67Movies",
                 tag: "HD",
-                url: `https://67movies.nl/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
+                url: `https://67movies.nl/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}${isTV ? `/${selectedSeason}/${selectedEpisode}` : ""}`,
               },
               {
                 name: "Flixer",
                 tag: "HD",
-                url: `https://flixer.su/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
+                url: `https://flixer.su/watch/${isTV ? "tv" : "movie"}/${movieDetail.id}${isTV ? `/${selectedSeason}/${selectedEpisode}` : ""}`,
               },
               {
                 name: "Cinezone",
@@ -639,12 +752,12 @@ const MovieDetail = () => {
               {
                 name: "Cineby",
                 tag: "HD",
-                url: `https://cineby.at/${isTV ? "tv" : "movie"}/${movieDetail.id}`,
+                url: `https://cineby.at/${isTV ? "tv" : "movie"}/${movieDetail.id}${isTV ? `/${selectedSeason}/${selectedEpisode}` : ""}`,
               },
               {
                 name: "RiveStream",
                 tag: "HD",
-                url: `https://www.rivestream.app/detail?type=${isTV ? "tv" : "movie"}&id=${movieDetail.id}`,
+                url: `https://www.rivestream.app/detail?type=${isTV ? "tv" : "movie"}&id=${movieDetail.id}${isTV ? `&season=${selectedSeason}&episode=${selectedEpisode}` : ""}`,
               },
             ].map((site) => (
               <a
