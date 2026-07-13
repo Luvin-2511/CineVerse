@@ -1,5 +1,4 @@
 
-
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -46,4 +45,23 @@ button {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* ── Reduced-motion: kills all non-essential animations globally ── */
+/* Triggered by OS "Reduce motion" setting — covers all low-end users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── content-visibility: skip layout & paint for off-screen cards ── */
+.movie-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 340px; /* approx poster height to prevent layout shift */
 }

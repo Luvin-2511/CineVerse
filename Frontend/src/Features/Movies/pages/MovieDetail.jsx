@@ -41,6 +41,7 @@ const MovieDetail = () => {
   const [episodes, setEpisodes] = useState([]);
   const [selectedEpisode, setSelectedEpisode] = useState(1);
   const [loadingEpisodes, setLoadingEpisodes] = useState(false);
+  const [showBgTrailer, setShowBgTrailer] = useState(false);
 
   const { movieId } = useParams();
   const navigate = useNavigate();
@@ -75,12 +76,32 @@ const MovieDetail = () => {
   }, [movieDetail]);
 
   useEffect(() => {
+    let timeout;
+
+    // Skip background trailer on low-end devices
+    const cores = navigator.hardwareConcurrency || 1;
+    const conn = navigator.connection;
+    const isSlowConnection = conn &&
+      (conn.saveData || conn.effectiveType === "2g" || conn.effectiveType === "slow-2g");
+    const isLowEnd = cores <= 2 || isSlowConnection;
+
+    if (!isLowEnd && trailer?.key && !modalOpen && !watchModalOpen) {
+      timeout = setTimeout(() => {
+        setShowBgTrailer(true);
+      }, 3500);
+    } else {
+      setShowBgTrailer(false);
+    }
+    return () => clearTimeout(timeout);
+  }, [trailer, modalOpen, watchModalOpen]);
+
+  useEffect(() => {
     if (!movieDetail?.id || !movieDetail?.first_air_date) return;
-    
+
     const controller = new AbortController();
     setLoadingEpisodes(true);
     setSelectedEpisode(1);
-    
+
     fetch(
       `https://api.themoviedb.org/3/tv/${movieDetail.id}/season/${selectedSeason}?api_key=${TMDB_API_KEY}`,
       { signal: controller.signal }
@@ -98,7 +119,7 @@ const MovieDetail = () => {
           setLoadingEpisodes(false);
         }
       });
-      
+
     return () => controller.abort();
   }, [selectedSeason, movieDetail?.id]);
 
@@ -127,74 +148,109 @@ const MovieDetail = () => {
 
   const SOURCES = [
     {
-      id: "embed.su",
-      name: "Server 1",
+      id: "vidsrc.io",
+      name: "Server 1 (VidSrc Io)",
       url: isTV
-        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://embed.su/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.io/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.io/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.pro",
-      name: "Server 2",
+      id: "vidsrc.me",
+      name: "Server 2 (VidSrc Me)",
       url: isTV
-        ? `https://vidsrc.pro/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.pro/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "2embed",
-      name: "Server 3",
-      url: isTV
-        ? `https://www.2embed.cc/embedtv/${movieDetail.id}&s=${selectedSeason}&e=${selectedEpisode}`
-        : `https://www.2embed.cc/embed/${movieDetail.id}`,
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
     },
     {
       id: "vidsrc.to",
-      name: "Server 4",
+      name: "Server 3 (VidSrc To)",
       url: isTV
         ? `https://vidsrc.to/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
         : `https://vidsrc.to/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.me",
-      name: "Server 5",
+      id: "vidsrc.uk",
+      name: "Server 4 (VidSrc Uk)",
       url: isTV
-        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
-        : `https://vidsrc.me/embed/movie/${movieDetail.id}`,
+        ? `https://vidsrc.uk/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.uk/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "2embed",
+      name: "Server 5 (2Embed)",
+      url: isTV
+        ? `https://www.2embed.cc/embedtv/${movieDetail.id}&s=${selectedSeason}&e=${selectedEpisode}`
+        : `https://www.2embed.cc/embed/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.stream",
+      name: "Server 6 (VidSrc Stream)",
+      url: isTV
+        ? `https://vidsrc.stream/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.stream/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.co",
+      name: "Server 7 (VidSrc Co)",
+      url: isTV
+        ? `https://vidsrc.co/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.co/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.in",
+      name: "Server 8 (VidSrc In)",
+      url: isTV
+        ? `https://vidsrc.in/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.in/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.pm",
+      name: "Server 9 (VidSrc Pm)",
+      url: isTV
+        ? `https://vidsrc.pm/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.pm/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.net",
+      name: "Server 10 (VidSrc Net)",
+      url: isTV
+        ? `https://vidsrc.net/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.net/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.ru",
+      name: "Server 11 (VidSrc Ru)",
+      url: isTV
+        ? `https://vidsrc.ru/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.ru/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc.pw",
+      name: "Server 12 (VidSrc Pw)",
+      url: isTV
+        ? `https://vidsrc.pw/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.pw/embed/movie/${movieDetail.id}`,
     },
     {
       id: "smashystream",
-      name: "Server 6",
+      name: "Server 13 (SmashyStream)",
       url: isTV
         ? `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
         : `https://embed.smashystream.com/playere.php?tmdb=${movieDetail.id}`,
     },
     {
-      id: "multiembed",
-      name: "Server 7",
+      id: "vidsrc.nl",
+      name: "Server 14 (VidSrc Nl)",
       url: isTV
-        ? `https://multiembed.mov/?video_id=${movieDetail.id}&tmdb=1&s=${selectedSeason}&e=${selectedEpisode}`
-        : `https://multiembed.mov/?video_id=${movieDetail.id}&tmdb=1`,
+        ? `https://vidsrc.nl/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.nl/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "vidsrc.cc",
-      name: "Server 8",
+      id: "blackvid",
+      name: "Server 15 (BlackVid)",
       url: isTV
-        ? `https://vidsrc.cc/v2/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://vidsrc.cc/v2/embed/movie/${movieDetail.id}`,
-    },
-    {
-      id: "videasy",
-      name: "Server 9",
-      url: isTV
-        ? `https://player.videasy.net/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://player.videasy.net/movie/${movieDetail.id}`,
-    },
-    {
-      id: "moviesapi",
-      name: "Server 10",
-      url: isTV
-        ? `https://moviesapi.club/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
-        : `https://moviesapi.club/movie/${movieDetail.id}`,
+        ? `https://blackvid.space/embed?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://blackvid.space/embed?tmdb=${movieDetail.id}`,
     },
   ];
 
@@ -211,57 +267,84 @@ const MovieDetail = () => {
 
       <section className="detail__hero">
         {watchModalOpen && (
-          <div className="video-player">
-            <div onClick={() => setWatchModalOpen(false)} className="close">
-              <div className="first-cross" />
-              <div className="second-cross" />
-            </div>
-            <div className="left-server-links">
-              {SOURCES.map((source) => (
-                <div
-                  key={source.id}
-                  style={{
-                    backgroundColor:
-                      currentSource.name === source.name ? "#e8ff00" : "",
-                    color: currentSource.name === source.name ? "black" : "",
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveSource(source);
-                  }}
-                  className="link-tag"
-                >
-                  {source.name}
-                  <div className="small-text">{source.id}</div>
+          <div className="theater-modal">
+            {/* AMBILIGHT EFFECT */}
+            <div
+              className="theater-modal__ambilight"
+              style={{
+                backgroundImage: `url(${IMG_BASE_BACKDROP}${movieDetail.backdrop_path})`
+              }}
+            />
+            <div className="theater-modal__overlay" onClick={() => setWatchModalOpen(false)} />
+
+            <button className="theater-modal__close" onClick={() => setWatchModalOpen(false)}>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+              </svg>
+            </button>
+
+            <div className="theater-modal__content">
+              <div className="theater-modal__player">
+                {!currentSource.url ? (
+                  <div className="theater-modal__error">
+                    <h3>Server not working right now</h3>
+                    <h5>Change to other Server</h5>
+                  </div>
+                ) : (
+                  <iframe
+                    allowFullScreen
+                    key={`${currentSource.id}-s${selectedSeason}-e${selectedEpisode}`}
+                    src={currentSource.url}
+                    allow="autoplay; encrypted-media; fullscreen"
+                  />
+                )}
+              </div>
+
+              <div className="theater-modal__sidebar">
+                <h4 className="sidebar-title">Select Server</h4>
+                <div className="server-list">
+                  {SOURCES.map((source) => (
+                    <button
+                      key={source.id}
+                      className={`server-btn ${currentSource.name === source.name ? "active" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveSource(source);
+                      }}
+                    >
+                      <span className="dot" />
+                      <div className="server-info">
+                        <span className="server-name">{source.name}</span>
+                        <span className="server-id">{source.id}</span>
+                      </div>
+                    </button>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="right-player">
-              {!currentSource.url ? (
-                <>
-                  <h3>Server not working right now</h3>
-                  <h5>Change to other Server</h5>
-                </>
-              ) : (
-                <iframe
-                  allowFullScreen
-                  key={`${currentSource.id}-s${selectedSeason}-e${selectedEpisode}`}
-                  src={currentSource.url}
-                  allow="autoplay; encrypted-media; fullscreen"
-                  style={{ width: "100%", height: "100%", border: "none" }}
-                />
-              )}
+              </div>
             </div>
           </div>
         )}
 
         <div className="detail__hero-backdrop">
+          {trailer && (
+            <div className="detail__hero-bg-video">
+              {showBgTrailer && (
+                <iframe
+                  src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailer.key}&modestbranding=1&iv_load_policy=3&playsinline=1`}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
+              )}
+            </div>
+          )}
+
           {movieDetail.backdrop_path ? (
             <img
               fetchPriority="high"
               loading="eager"
               src={`${IMG_BASE_BACKDROP}${movieDetail.backdrop_path}`}
               alt={movieDetail.original_title || movieDetail.name}
+              className={showBgTrailer ? "fade-out" : ""}
             />
           ) : (
             <div

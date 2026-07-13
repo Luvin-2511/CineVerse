@@ -183,25 +183,15 @@ nav {
     letter-spacing: 0.02em;
     color: rgba(255,255,255,0.85);
     text-align: left;
-    transition: color 0.25s ease;
+    transition: color 0.25s ease, background-color 0.25s ease;
     position: relative;
     overflow: hidden;
 
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: #e8ff00;
-      transform: translateX(-101%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 0;
-    }
-
-    & > * { position: relative; z-index: 1; }
-
+    /* Simpler background-color swap instead of translateX pseudo-element
+       for better performance on low-end GPUs */
     &:hover {
       color: #0a090c;
-      &::before { transform: translateX(0); }
+      background-color: #e8ff00;
       .big-nav__link-num   { color: rgba(0,0,0,0.4); }
       .big-nav__link-arrow { transform: translateX(8px); color: #0a090c; }
     }

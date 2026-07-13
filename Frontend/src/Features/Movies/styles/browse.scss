@@ -32,8 +32,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    background: rgba(6, 6, 8, 0.95);
-    backdrop-filter: blur(12px);
+    background: rgb(6, 6, 8); /* Solid bg instead of backdrop-filter blur */
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     padding: 1rem clamp(1.5rem, 4vw, 4rem);
     display: flex;
