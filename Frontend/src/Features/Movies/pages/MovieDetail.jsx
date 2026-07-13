@@ -348,36 +348,28 @@ const MovieDetail = () => {
 
     // --- 4K / UHD SERVERS ---
     {
-      id: "4k_vidplay",
-      name: "VidPlay (4K UHD)",
+      id: "4k_vdohide",
+      name: "VDOHide (4K HLS)",
       type: "4k",
       url: isTV
-        ? `https://vidsrc.cc/v2/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}?autoPlay=1`
-        : `https://vidsrc.cc/v2/embed/movie/${movieDetail.id}?autoPlay=1`,
+        ? `https://vdohide.com/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vdohide.com/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "4k_moviesapi",
-      name: "MoviesAPI (4K)",
+      id: "4k_uqload",
+      name: "Uqload (4K HLS)",
       type: "4k",
       url: isTV
-        ? `https://moviesapi.club/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
-        : `https://moviesapi.club/movie/${movieDetail.id}`,
+        ? `https://uqload.io/embed/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://uqload.io/embed/movie/${movieDetail.id}`,
     },
     {
-      id: "4k_multiembed",
-      name: "MultiEmbed (4K)",
+      id: "4k_streamlet",
+      name: "Streamlet (4K Adaptive)",
       type: "4k",
       url: isTV
-        ? `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1&s=${selectedSeason}&e=${selectedEpisode}`
-        : `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1`,
-    },
-    {
-      id: "4k_embed_su",
-      name: "EmbedSu (4K / HLS)",
-      type: "4k",
-      url: isTV
-        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
-        : `https://embed.su/embed/movie/${movieDetail.id}`,
+        ? `https://streamlet.site/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://streamlet.site/embed/movie?tmdb=${movieDetail.id}`,
     },
   ];
 
