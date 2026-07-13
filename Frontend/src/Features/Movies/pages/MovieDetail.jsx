@@ -345,6 +345,40 @@ const MovieDetail = () => {
         ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
         : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
     },
+
+    // --- 4K / UHD SERVERS ---
+    {
+      id: "4k_vidplay",
+      name: "VidPlay (4K UHD)",
+      type: "4k",
+      url: isTV
+        ? `https://vidsrc.cc/v2/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}?autoPlay=1`
+        : `https://vidsrc.cc/v2/embed/movie/${movieDetail.id}?autoPlay=1`,
+    },
+    {
+      id: "4k_moviesapi",
+      name: "MoviesAPI (4K)",
+      type: "4k",
+      url: isTV
+        ? `https://moviesapi.club/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://moviesapi.club/movie/${movieDetail.id}`,
+    },
+    {
+      id: "4k_multiembed",
+      name: "MultiEmbed (4K)",
+      type: "4k",
+      url: isTV
+        ? `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1&s=${selectedSeason}&e=${selectedEpisode}`
+        : `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1`,
+    },
+    {
+      id: "4k_embed_su",
+      name: "EmbedSu (4K / HLS)",
+      type: "4k",
+      url: isTV
+        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://embed.su/embed/movie/${movieDetail.id}`,
+    },
   ];
 
   const currentSource = activeSource
@@ -425,6 +459,24 @@ const MovieDetail = () => {
                       }}
                     >
                       <span className="dot" />
+                      <div className="server-info">
+                        <span className="server-name">{source.name}</span>
+                        <span className="server-id">{source.id}</span>
+                      </div>
+                    </button>
+                  ))}
+
+                  <div className="server-category-title server-category-title--4k" style={{ marginTop: '1rem' }}>4K / UHD</div>
+                  {SOURCES.filter(s => s.type === "4k").map((source) => (
+                    <button
+                      key={source.id}
+                      className={`server-btn server-btn--4k ${currentSource.name === source.name ? "active" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveSource(source);
+                      }}
+                    >
+                      <span className="dot dot--4k" />
                       <div className="server-info">
                         <span className="server-name">{source.name}</span>
                         <span className="server-id">{source.id}</span>
