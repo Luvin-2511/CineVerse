@@ -4,6 +4,51 @@
   color: var(--text-color);
   padding-top: max(8vw, 72px);
 
+  // ── Fullscreen overrides ──────────────────────────────────────────────────
+  // When the embedded player's fullscreen button is clicked, the <iframe>
+  // (or one of its ancestors) enters the browser's native fullscreen mode.
+  // These rules ensure that every layer expands edge-to-edge with no gaps.
+  .theater-modal,
+  .theater-modal__content,
+  .theater-modal__player {
+    &:fullscreen,
+    &:-webkit-full-screen,
+    &:-moz-full-screen,
+    &:-ms-fullscreen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      inset: 0 !important;
+    }
+  }
+
+  // When the <iframe> itself is the fullscreen element
+  .theater-modal__player iframe {
+    &:fullscreen,
+    &:-webkit-full-screen,
+    &:-moz-full-screen,
+    &:-ms-fullscreen {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      z-index: 99999 !important;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+
   .theater-modal {
     position: fixed;
     inset: 0;
