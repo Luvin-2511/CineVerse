@@ -1679,3 +1679,45 @@
     transform: scale(1);
   }
 }
+
+// ── Global fullscreen rules ───────────────────────────────────────────────
+// These are placed OUTSIDE .detail so they apply even when the browser
+// promotes the element to a top-level fullscreen stacking context.
+:fullscreen .theater-modal,
+:-webkit-full-screen .theater-modal,
+:-moz-full-screen .theater-modal {
+  padding: 0 !important;
+  border: none !important;
+}
+
+:fullscreen .theater-modal__content,
+:-webkit-full-screen .theater-modal__content,
+:-moz-full-screen .theater-modal__content {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+:fullscreen .theater-modal__player,
+:-webkit-full-screen .theater-modal__player,
+:-moz-full-screen .theater-modal__player {
+  border-radius: 0 !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+:fullscreen .theater-modal__player iframe,
+:-webkit-full-screen .theater-modal__player iframe,
+:-moz-full-screen .theater-modal__player iframe {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border: none !important;
+  border-radius: 0 !important;
+  z-index: 99999 !important;
+}
+// ─────────────────────────────────────────────────────────────────────────
