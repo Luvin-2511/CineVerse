@@ -783,6 +783,38 @@ const MovieDetail = () => {
         ? `https://vidsrc.icu/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
         : `https://vidsrc.icu/embed/movie?tmdb=${movieDetail.id}`,
     },
+    {
+      id: "vidsrc_cc_premium",
+      name: "VidSrc.cc (High Quality)",
+      type: "4k",
+      url: isTV
+        ? `https://vidsrc.cc/v2/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.cc/v2/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc_nl",
+      name: "VidSrc.nl (Ad-Free)",
+      type: "4k",
+      url: isTV
+        ? `https://player.vidsrc.nl/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://player.vidsrc.nl/movie/${movieDetail.id}`,
+    },
+    {
+      id: "smashystream_v2",
+      name: "SmashyStream V2 (Reliable)",
+      type: "multi",
+      url: isTV
+        ? `https://player.smashy.stream/tv/${movieDetail.id}?s=${selectedSeason}&e=${selectedEpisode}`
+        : `https://player.smashy.stream/movie/${movieDetail.id}`,
+    },
+    {
+      id: "gomovies",
+      name: "GoMovies (Fast CDN)",
+      type: "multi",
+      url: isTV
+        ? `https://vidsrc.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.su/embed/movie/${movieDetail.id}`,
+    },
   ];
 
   const currentSource = activeSource
@@ -840,7 +872,7 @@ const MovieDetail = () => {
               <div className="theater-modal__sidebar">
                 <h4 className="sidebar-title">Select Server</h4>
                 <div className="server-list">
-                  <div className="server-category-title" style={{ color: "#e8ff00" }}>⭐ Ultimate Players (All Features)</div>
+                  <div className="server-category-title">Ultimate Players (All Features)</div>
                   {SOURCES.filter(s => s.type === "ultimate").map((source) => (
                     <button
                       key={source.id}
@@ -849,11 +881,10 @@ const MovieDetail = () => {
                         e.preventDefault();
                         setActiveSource(source);
                       }}
-                      style={{ borderLeft: "3px solid #e8ff00", background: "rgba(232, 255, 0, 0.05)" }}
                     >
-                      <span className="dot" style={{ background: "#e8ff00", boxShadow: "0 0 10px #e8ff00" }} />
+                      <span className="dot" />
                       <div className="server-info">
-                        <span className="server-name" style={{ color: "#e8ff00", fontWeight: "600" }}>{source.name}</span>
+                        <span className="server-name">{source.name}</span>
                         <span className="server-id">{source.id}</span>
                       </div>
                     </button>
