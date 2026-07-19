@@ -147,30 +147,30 @@ const MovieDetail = () => {
   };
 
   const SOURCES = [
-    // --- ULTIMATE PLAYERS (INTERNAL SERVERS, DUBBED, 4K, AI FEATURES) ---
+    // --- ULTIMATE PLAYERS (4K · Dubs · Multi-Server · Built-in Switcher) ---
     {
-      id: "ultimate_vidlink",
-      name: "VidLink Ultimate (4K + AI Enhancer + Dub)",
+      id: "ultimate_videasy",
+      name: "⚡ Videasy  [ 4K · Quality Picker · Multi-Server · Next Episode ]",
       type: "ultimate",
       url: isTV
-        ? `https://vidlink.pro/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}?primaryColor=e8ff00&autoplay=false`
-        : `https://vidlink.pro/movie/${movieDetail.id}?primaryColor=e8ff00&autoplay=false`,
+        ? `https://player.videasy.net/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}?color=e8ff00&nextEpisode=1&episodeSelector=1`
+        : `https://player.videasy.net/movie/${movieDetail.id}?color=e8ff00`,
     },
     {
-      id: "ultimate_superembed",
-      name: "SuperEmbed (Internal Server Switcher)",
+      id: "ultimate_vidsrc_me",
+      name: "🌟 VidSrc.me  [ 4K · Subtitles · Multi-Server · Dubbed ]",
       type: "ultimate",
       url: isTV
-        ? `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1&s=${selectedSeason}&e=${selectedEpisode}`
-        : `https://multiembed.mov/directstream.php?video_id=${movieDetail.id}&tmdb=1`,
+        ? `https://vidsrc.me/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.me/embed/movie?tmdb=${movieDetail.id}`,
     },
     {
-      id: "ultimate_autoembed",
-      name: "AutoEmbed Pro (Multi-Server + Dub)",
+      id: "ultimate_vidsrc_pro",
+      name: "💥 VidSrc.pro  [ Dubbed · 4K · Subtitles · Reliable ]",
       type: "ultimate",
       url: isTV
-        ? `https://autoembed.co/tv/tmdb/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
-        : `https://autoembed.co/movie/tmdb/${movieDetail.id}`,
+        ? `https://vidsrc.pro/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://vidsrc.pro/embed/movie/${movieDetail.id}`,
     },
     // --- FAST HLS / VOE SERVERS ---
     {
@@ -717,6 +717,72 @@ const MovieDetail = () => {
         ? `https://embed.adminhihi.com/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
         : `https://embed.adminhihi.com/movie/${movieDetail.id}`,
     },
+    {
+      id: "4k_embed_su",
+      name: "Embed.su (4K Stream)",
+      type: "4k",
+      url: isTV
+        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://embed.su/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "4k_moviesapi",
+      name: "MoviesAPI (4K HLS)",
+      type: "4k",
+      url: isTV
+        ? `https://moviesapi.club/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://moviesapi.club/movie/${movieDetail.id}`,
+    },
+    {
+      id: "4k_111movies",
+      name: "111Movies (4K)",
+      type: "4k",
+      url: isTV
+        ? `https://111movies.com/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://111movies.com/movie/${movieDetail.id}`,
+    },
+
+    // --- NEW SERVERS ---
+    {
+      id: "111movies",
+      name: "111Movies (Great Quality)",
+      type: "multi",
+      url: isTV
+        ? `https://111movies.com/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://111movies.com/movie/${movieDetail.id}`,
+    },
+    {
+      id: "embed_su",
+      name: "Embed.su (Multi Audio + Subs)",
+      type: "multi",
+      url: isTV
+        ? `https://embed.su/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://embed.su/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "moviesapi",
+      name: "MoviesAPI (Fast HLS)",
+      type: "multi",
+      url: isTV
+        ? `https://moviesapi.club/tv/${movieDetail.id}-${selectedSeason}-${selectedEpisode}`
+        : `https://moviesapi.club/movie/${movieDetail.id}`,
+    },
+    {
+      id: "nontonfilm",
+      name: "NontonFilm (Fast CDN)",
+      type: "multi",
+      url: isTV
+        ? `https://www.NontonGo.net/embed/tv/${movieDetail.id}/${selectedSeason}/${selectedEpisode}`
+        : `https://www.NontonGo.net/embed/movie/${movieDetail.id}`,
+    },
+    {
+      id: "vidsrc_icu",
+      name: "VidSrc.icu (Dubbed)",
+      type: "multi",
+      url: isTV
+        ? `https://vidsrc.icu/embed/tv?tmdb=${movieDetail.id}&season=${selectedSeason}&episode=${selectedEpisode}`
+        : `https://vidsrc.icu/embed/movie?tmdb=${movieDetail.id}`,
+    },
   ];
 
   const currentSource = activeSource
@@ -759,13 +825,14 @@ const MovieDetail = () => {
                   <iframe
                     key={`${currentSource.id}-s${selectedSeason}-e${selectedEpisode}`}
                     src={currentSource.url}
-                    allowFullScreen
+                    allowFullScreen={true}
                     allowfullscreen="true"
-                    webkitAllowFullScreen
-                    mozAllowFullScreen
+                    webkitAllowFullScreen={true}
+                    mozAllowFullScreen={true}
                     frameBorder="0"
                     scrolling="no"
-                    allow="fullscreen; autoplay; picture-in-picture"
+                    allow="fullscreen *; autoplay; picture-in-picture; encrypted-media; gyroscope; accelerometer; web-share"
+                    referrerPolicy="no-referrer"
                   />
                 )}
               </div>
